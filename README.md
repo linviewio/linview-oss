@@ -28,7 +28,8 @@ Elastic, Metricbeat and Kibana are often referred to as EMK, so when you see ref
 2. `cd linstor-oss-emk/emk`
 3. Ensure that Docker CE engine and docker-compose are installed
 4. `docker-compose up -d`
-5. Login to the interface at `http://hostip:5901`
+5. Login to the interface at `http://hostip:5901` with username `elastic` and pw `test@123`
+6. Immediately go to `Management`, `Security`, `Users` and update the pw for the user `elastic`.
 
 ## Updating and Import Dashboards
 1. In the `import` directory, copy `dasboard_all_*version*.ndjson.sample` to `dashboard_all_*version*.ndjson`.
