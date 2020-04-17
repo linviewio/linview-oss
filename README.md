@@ -39,7 +39,8 @@ Elastic, Metricbeat and Kibana are often referred to as EMK, so when you see ref
 6. Now you can navigate to LINSTOR saved objects in the interface.
 
 ## Roadmap
-* Script to make updating the necessary import.ndjson file and importing easier.
+* Script to make updating the necessary import.ndjson file and importing easier
+* Add https and password support for the LINSTOR API access
 * Interface "Quick Start Guide"
 * Update on API elements collected in Elasticsearch
 * Updated dashboard elements for a more concise and informative layout
