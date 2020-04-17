@@ -1,0 +1,101 @@
+version: '3.2'
+
+services:
+  elasticsearch:
+    build:
+      context: elasticsearch/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - type: bind
+        source: ./elasticsearch/config/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+      - type: volume
+        source: elasticsearch
+        target: /usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xms2g -Xmx2g"
+      ELASTIC_PASSWORD: test@123
+    networks:
+      elasticsearch_net:
+        ipv4_address: ${ELASTIC_IP}
+
+  kibana:
+    build:
+      context: kibana/
+      args:
+        ELK_VERSION: $ELK_VERSION
+    volumes:
+      - type: bind
+        source: ./kibana/config/kibana.yml
+        target: /usr/share/kibana/config/kibana.yml
+        read_only: true
+    ports:
+      - "5601:5601"
+    networks:
+      elasticsearch_net:
+        ipv4_address: ${KIBANA_IP}
+    depends_on:
+      - elasticsearch
+      
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/config/grafana.ini:/etc/grafana/grafana.ini
+      - ./grafana/config/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/config/datasources:/etc/grafana/datasources
+      - ./grafana/config/plugins:/var/lib/grafana/plugins
+    ports:
+      - "3000:3000"
+    networks:
+      elasticsearch_net:
+        ipv4_address: ${GRAFANA_IP}
+    depends_on:
+      - elasticsearch      
+
+  metricbeat:
+    build:
+      context: metricbeat/
+    environment:
+      - HOST_IP=${HOST_IP}
+      - HOST_PORT=${HOST_PORT}
+      - ELASTIC_IP=${ELASTIC_IP}
+      - ELASTIC_PORT=${ELASTIC_PORT}
+      - KIBANA_IP=${KIBANA_IP}
+      - KIBANA_PORT=${KIBANA_PORT}    
+    volumes:
+      - type: bind
+        source: ./metricbeat/config/metricbeat.yml
+        target: /etc/metricbeat/metricbeat.yml
+      - type: bind
+        source: ./python-scripts/generateMetricbeat.py
+        target: /etc/metricbeat/python-scripts/generateMetricbeat.py
+      - type: bind
+        source: ./python-scripts/requirements.txt
+        target: /etc/metricbeat/python-scripts/requirements.txt
+    networks:
+      elasticsearch_net:
+        ipv4_address: ${METRICBEAT_IP}
+    depends_on:
+      - kibana
+# backlog - need to revisit the command below to optimize it in better way. 
+# we should never use Sleep command to pause
+    command: bash -c "./etc/entrypoint.sh"
+
+
+networks:
+  elasticsearch_net:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: ${SUBNET_RANGE}
+
+volumes:
+  elasticsearch:
+  grafana_data:
