@@ -22,6 +22,11 @@ Elastic, Metricbeat and Kibana are often referred to as EMK, so when you see ref
 * Linux
 * Docker CE Engine (https://docs.docker.com/engine/install/)
 * Docker Compose (https://docs.docker.com/compose/install/)
+* Target LINSTOR cluster*
+
+*If you need to configure a basic LINSTOR cluster on Ubuntu, you can follow instructions here: https://vitobotta.com/2019/08/07/linstor-storage-with-kubernetes/
+
+We are actively developing installation scripts to streamline controller and satellite setup, storage pool creation and resource creation. We will update this README once this is complete.
 
 ## Setting up LINVIEW OSS
 1. On the machine where LINVIEW OSS will be hosted, clone this repo.
