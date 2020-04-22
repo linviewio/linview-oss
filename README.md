@@ -1,5 +1,5 @@
 # LINVIEW OSS EMK for LINSTOR (Beta)
-## Version: 0.05beta (released 04/17/20)
+## Version: 0.5.1beta (released 04/17/20)
 
 ## This project is being heavily developed and there may be breaking changes.
 
