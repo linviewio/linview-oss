@@ -38,8 +38,8 @@ We are actively developing installation scripts to streamline controller and sat
 
 ## Updating and Import Dashboards
 1. In the `import` directory, copy `dasboard_all_*version*.ndjson.sample` to `dashboard_all_*version*.ndjson`.
-2. Find `DOCKER_HOST_FDQN:PORT` in the import file and replace with the FQDN or IP of your Docker Host and the port Kibana is listening on. Eg: http(s)://127.0.0.1:5601 or http://linview.myorg.local:5601. By default the docker compose file will bring Kibana up on port 5601.
-3. Find `LINSTOR_CONTROLLER_FQDN:PORT` in the import file and replace with the FQDN or IP of your LINSTOR controller and the port LINSTOR is listening on. Eg: http(s)://127.0.0.1:3370 or http://linstor-controller.myorg.local:3370. By default the LINSTOR API listens on port 3370.
+2. Find `DOCKER_HOST_FDQN:PORT` in the import file and replace with the FQDN or IP of your Docker Host and the port Kibana is listening on. Eg: `http(s)://127.0.0.1:5601` or `http://linview.myorg.local:5601`. By default the docker compose file will bring Kibana up on port 5601.
+3. Find `LINSTOR_CONTROLLER_FQDN:PORT` in the import file and replace with the FQDN or IP of your LINSTOR controller and the port LINSTOR is listening on. Eg: `http(s)://127.0.0.1:3370` or `http://linstor-controller.myorg.local:3370`. By default the LINSTOR API listens on port 3370.
 4. Copy the contents of your modified file to the machine where you will access the Kibana interface from.
 5. In Kibana, navigate to `management`, `Kibana`, `Saved Objects` and the choose `Import` and select the modified import file from steps 2-5.
 6. Now you can navigate to LINSTOR saved objects in the interface.
