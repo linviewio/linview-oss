@@ -24,7 +24,10 @@ Elastic, Metricbeat and Kibana are often referred to as EMK, so when you see ref
 * Docker Compose (https://docs.docker.com/compose/install/)
 * Target LINSTOR cluster*
 
-*If you need to configure a basic LINSTOR cluster on Ubuntu, you can follow instructions here: https://vitobotta.com/2019/08/07/linstor-storage-with-kubernetes/
+*If you need to configure a basic LINSTOR cluster on Ubuntu, you can follow instructions below:
+
+*Official LINSTOR documentation:* https://www.linbit.com/drbd-user-guide/linstor-guide-1_0-en/#s-installtion
+*Vito Botta blog:* https://vitobotta.com/2019/08/07/linstor-storage-with-kubernetes/
 
 We are actively developing installation scripts to streamline controller and satellite setup, storage pool creation and resource creation. We will update this README once this is complete.
 
@@ -32,6 +35,9 @@ We are actively developing installation scripts to streamline controller and sat
 1. On the machine where LINVIEW OSS will be hosted, clone this repo.
 2. `cd linstor-oss-emk/emk`
 3. Ensure that Docker CE engine and docker-compose are installed
+* *3a*. Edit `/emk/.env` and update the `HOST_IP=` field to be  `HOST_IP=YOURLINSTORCLUSTERIPorFQDN`. 
+* *3b*. Edit `/emk/.env` and update the `HOST_PORT=` field to be `HOST_PORT=YOURLINSTORCLUSTERPORT`.
+* See https://github.com/AlphaBravoCompany/linview-oss-emk/issues/7 for more details.
 4. `docker-compose up -d`
 5. Login to the interface at `http://hostip:5601` with username `elastic` and pw `test@123`
 6. Immediately go to `Management`, `Security`, `Users` and update the pw for the user `elastic`.
