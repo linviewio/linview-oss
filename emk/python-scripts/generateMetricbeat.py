@@ -23,6 +23,30 @@ def data_net_iface_storage_pool(node_name):
 
     yaml_to_write.append(yaml_data.replace("/nodes", "/nodes/"+node_name+"/storage-pools")
                          .replace("nodes_page", "node_storage_pool_page"))
+                         
+def data_net_iface_res_def(res_name):
+    """
+    This method appends a desired string(yaml_data) to a list(yaml_to_write).
+    """
+
+    yaml_to_write.append(yaml_data.replace("/nodes", "/resource-definitions/"+res_name+"/snapshots")
+                         .replace("nodes_page", "res_definitions_snapshots"))
+                         
+def data_net_iface_res_volume_groups(res_group_name):
+    """
+    This method appends a desired string(yaml_data) to a list(yaml_to_write).
+    """
+
+    yaml_to_write.append(yaml_data.replace("/nodes", "/resource-groups/"+res_group_name+"/volume-groups")
+                         .replace("nodes_page", "res_group_volumes"))
+                         
+def data_net_iface_res_group_volume_maxsize(res_group_name):
+    """
+    This method appends a desired string(yaml_data) to a list(yaml_to_write).
+    """
+
+    yaml_to_write.append(yaml_data.replace("/nodes", "/resource-groups/"+res_group_name+"/query-max-volume-size")
+                         .replace("nodes_page", "res_group_volumes_maxsize"))
 
 
 def error_report(data):
@@ -61,17 +85,29 @@ def resource_names(data, req_num):
     elif req_num == "7":
         yaml_to_write.append(yaml_data.replace("/nodes", "/error-reports")
                              .replace("nodes_page", "error_report_page"))
+    elif req_num == "4":
+        yaml_to_write.append(yaml_data.replace("/nodes", "/resource-groups")
+                             .replace("nodes_page", "resource_group_page"))
 
     if req_num != "5" or req_num != "6" or req_num != "8":
         for i in range(len(data)):
             if req_num == "1":
                 nodes.append(data[i]['name'])
                 data_net_iface_storage_pool(data[i]['name'])
+            elif req_num == "3":
+                nodes.append(data[i]['name'])
+                data_net_iface_res_def(data[i]['name'])
+            elif req_num == "4":
+                nodes.append(data[i]['name'])
+                data_net_iface_res_volume_groups(data[i]['name'])
+                data_net_iface_res_group_volume_maxsize(data[i]['name'])
+            
             # elif req_num == "7":
             #     if i == 0:
             #         yaml_to_write.append(yaml_data.replace("/nodes","/error-reports")\
             #             .replace("nodes_page","error_report_page"))
                 # error_report(data[i]['filename'].split("ErrorReport-")[1].split(".log")[0])
+               
 
 
 def api_req(path, req_num):
@@ -142,7 +178,7 @@ def main():
     """
     try:
         scheduler = BlockingScheduler()
-        scheduler.add_job(start_process, 'interval', seconds=60)
+        scheduler.add_job(start_process, 'interval', seconds=600)
         scheduler.start()
     except Exception as excep:
         info = "Exception has occured, details: {0}".format(excep)
@@ -175,8 +211,8 @@ if args.host:
         yaml_data = yaml_data_raw % host
         endpoints = {"1": "http://"+host+"/v1/nodes",
                      "2": "http://"+host+"/v1/storage-pool-definitions",
-                     "3": "http://"+host+"/v1/resource-definitions",
                      "4": "http://"+host+"/v1/resource-groups",
+                     "3": "http://"+host+"/v1/resource-definitions",
                      "5": "http://"+host+"/v1/controller/properties",
                      "6": "http://"+host+"/v1/controller/version",
                      "7": "http://"+host+"/v1/error-reports",

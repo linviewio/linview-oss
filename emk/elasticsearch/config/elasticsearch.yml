@@ -13,9 +13,9 @@ discovery.type: single-node
 ## X-Pack settings
 ## see https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-xpack.html
 #
-#xpack.license.self_generated.type: trial
-#xpack.security.enabled: true
-#xpack.monitoring.collection.enabled: true
+xpack.license.self_generated.type: trial
+xpack.security.enabled: true
+xpack.monitoring.collection.enabled: true
 #change email address to desired address
 #xpack.notification.email.account:
 #     gmail_account:
