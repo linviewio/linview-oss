@@ -39,3 +39,6 @@ sed -i "s/\LINSTORPORT/$linstorport/g" ./import/$linstorhost-linview-kibana.ndjs
 cp ./emk/.env ./emk/.env.orig
 sed -i "s/\LINSTORHOST/$linstorhost/g" ./emk/.env
 sed -i "s/\LINSTORPORT/$linstorport/g" ./emk/.env
+
+# Run docker containers
+docker-compose -f ./emk/docker-compose.yml up -d
