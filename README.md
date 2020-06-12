@@ -27,9 +27,9 @@ Elastic, Metricbeat and Kibana are often referred to as EMK, so when you see ref
 
 *If you need to configure a basic LINSTOR cluster on Ubuntu, you can follow instructions below:
 
-*Official LINSTOR documentation:* https://www.linbit.com/drbd-user-guide/linstor-guide-1_0-en/#s-installation
-*Basic 3 Node Setup Script for Ubuntu:* https://github.com/AlphaBravoCompany/linstor-ubuntu-demo 
-*Vito Botta blog:* https://vitobotta.com/2019/08/07/linstor-storage-with-kubernetes/
+* *Official LINSTOR documentation:* https://www.linbit.com/drbd-user-guide/linstor-guide-1_0-en/#s-installation
+* *Basic 3 Node Setup Script for Ubuntu:* https://github.com/AlphaBravoCompany/linstor-ubuntu-demo 
+* *Vito Botta blog:* https://vitobotta.com/2019/08/07/linstor-storage-with-kubernetes/
 
 We are actively developing installation scripts to streamline controller and satellite setup, storage pool creation and resource creation. We will update this README once this is complete.
 
