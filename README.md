@@ -1,11 +1,12 @@
-# LINVIEW OSS EMK for LINSTOR (Beta)
+# LINVIEW OSS for LINSTOR (Beta)
+
 ## Version: 0.6-beta (released 06/11/20)
 
 ## This project is being heavily developed and there may be breaking changes.
 
 **LINVIEW OSS** is the open-source version of LINVIEW storage dashboard to visualize LINSTOR (https://www.linbit.com/linstor/) storage cluster.
 
-**LINSTOR** is Block Storage Management For Containers. 
+**LINSTOR** is Block Storage Management For Containers.
 
 With native integration to Kubernetes, LINSTOR makes building, running, and controlling block storage simple. LINSTOR is open-source software designed to manage block storage devices for large Linux server clusters. It’s used to provide persistent Linux block storage for Kubernetes, OpenStack, OpenNebula, and OpenShift environments. 
 
@@ -59,13 +60,13 @@ Please submit issues in GitHub Issues for this project.
 
 Please read the user-guide provided at [docs.linbit.com](https://docs.linbit.com).
 
-## Visualizing and Managing LINSTOR Clusters using the LINVIEW GUI:
+## Visualizing and Managing LINSTOR Clusters using the LINVIEW GUI
 
 LINVIEW OSS: https://github.com/AlphaBravoCompany/linview-oss
 
 LINVIEW Enterprise: Contact LINVIEW at https://linview.io
 
-## Support and Consulting:
+## Support and Consulting
 
 Supported enterprise versions of LINSTOR, please contact LINBIT: https://www.linbit.com
 
