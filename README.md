@@ -52,5 +52,22 @@ We are actively developing installation scripts to streamline controller and sat
 * Instructions for alerting using Elastic xPack alerting (paid Elastic feature)
 * Other Improvements
 
+## Issues
 Please submit issues in GitHub Issues for this project.
 
+## Using LINSTOR
+
+Please read the user-guide provided at [docs.linbit.com](https://docs.linbit.com).
+
+## Visualizing and Managing LINSTOR Clusters using the LINVIEW GUI:
+
+LINVIEW OSS: https://github.com/AlphaBravoCompany/linview-oss
+
+LINVIEW Enterprise: Contact LINVIEW at https://linview.io
+
+## Support and Consulting:
+
+Supported enterprise versions of LINSTOR, please contact LINBIT: https://www.linbit.com
+
+LINVIEW Support, please contact LINVIEW: https://linview.io
+DevSecOps Acceleration for both public and private sector: https://alphabravo.io
