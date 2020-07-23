@@ -2,6 +2,7 @@ import requests
 import json
 import subprocess
 import re
+
 # pip install APScheduler
 from apscheduler.schedulers.blocking import BlockingScheduler
 import logging
@@ -21,23 +22,55 @@ def data_net_iface_storage_pool(node_name):
     This method appends a desired string(yaml_data) to a list(yaml_to_write).
     """
 
-    yaml_to_write.append(yaml_data.replace("/nodes", "/nodes/"+node_name+"/storage-pools")
+    yaml_to_write.append(yaml_data.replace("/nodes", "/nodes/" + node_name + "/storage-pools")
                          .replace("nodes_page", "node_storage_pool_page"))
+
+def data_net_iface_storage_pool_info(pool_name):
+    """
+    This method appends a desired string(yaml_data) to a list(yaml_to_write).
+    """
+
+    yaml_to_write.append(yaml_data.replace("/nodes", "/storage-pool-definitions/" + pool_name)
+                         .replace("nodes_page", "storage_pool_info_page"))
                          
 def data_net_iface_res_def(res_name):
     """
     This method appends a desired string(yaml_data) to a list(yaml_to_write).
     """
 
-    yaml_to_write.append(yaml_data.replace("/nodes", "/resource-definitions/"+res_name+"/snapshots")
+    yaml_to_write.append(yaml_data.replace("/nodes", "/resource-definitions/" + res_name + "/snapshots")
                          .replace("nodes_page", "res_definitions_snapshots"))
+
+def data_net_iface_res_def_volume_def(res_name):
+    """
+    This method appends a desired string(yaml_data) to a list(yaml_to_write).
+    """
+
+    yaml_to_write.append(yaml_data.replace("/nodes", "/resource-definitions/" + res_name + "/volume-definitions")
+                         .replace("nodes_page", "res_definitions_volume_def"))
+
+def data_net_iface_res_def_resources(res_name):
+    """
+    This method appends a desired string(yaml_data) to a list(yaml_to_write).
+    """
+
+    yaml_to_write.append(yaml_data.replace("/nodes", "/resource-definitions/" + res_name + "/resources")
+                         .replace("nodes_page", "res_definitions_resources"))
+
+def data_net_iface_res_def_resources_connection(res_name):
+    """
+    This method appends a desired string(yaml_data) to a list(yaml_to_write).
+    """
+
+    yaml_to_write.append(yaml_data.replace("/nodes", "/resource-definitions/" + res_name + "/resource-connections")
+                         .replace("nodes_page", "res_definitions_resources_conn"))
                          
 def data_net_iface_res_volume_groups(res_group_name):
     """
     This method appends a desired string(yaml_data) to a list(yaml_to_write).
     """
 
-    yaml_to_write.append(yaml_data.replace("/nodes", "/resource-groups/"+res_group_name+"/volume-groups")
+    yaml_to_write.append(yaml_data.replace("/nodes", "/resource-groups/" + res_group_name + "/volume-groups")
                          .replace("nodes_page", "res_group_volumes"))
                          
 def data_net_iface_res_group_volume_maxsize(res_group_name):
@@ -48,6 +81,13 @@ def data_net_iface_res_group_volume_maxsize(res_group_name):
     yaml_to_write.append(yaml_data.replace("/nodes", "/resource-groups/"+res_group_name+"/query-max-volume-size")
                          .replace("nodes_page", "res_group_volumes_maxsize"))
 
+def key_value_store_instance(instance):
+    """
+    This method appends a desired string(yaml_data) to a list(yaml_to_write).
+    """
+
+    yaml_to_write.append(yaml_data.replace("/nodes", "/key-value-store/" + instance)
+                         .replace("nodes_page", "key_value_store_instance_page"))
 
 def error_report(data):
     """
@@ -79,15 +119,37 @@ def resource_names(data, req_num):
     elif req_num == "9":
         yaml_to_write.append(yaml_data.replace("/nodes", "/view/resources")
                              .replace("nodes_page", "resources_page"))
+
+    elif req_num == "10":
+        yaml_to_write.append(yaml_data.replace("/nodes", "/view/snapshots")
+                             .replace("nodes_page", "snapshots_page"))
+
     elif req_num == "3":
         yaml_to_write.append(yaml_data.replace("/nodes", "/resource-definitions")
                              .replace("nodes_page", "resource_definition_page"))
+
+    elif req_num == "2":
+        yaml_to_write.append(yaml_data.replace("/nodes", "/storage-pool-definitions")
+                             .replace("nodes_page", "storage_pool_definition_page"))
+    
     elif req_num == "7":
         yaml_to_write.append(yaml_data.replace("/nodes", "/error-reports")
                              .replace("nodes_page", "error_report_page"))
     elif req_num == "4":
         yaml_to_write.append(yaml_data.replace("/nodes", "/resource-groups")
                              .replace("nodes_page", "resource_group_page"))
+
+    elif req_num == "11":
+        yaml_to_write.append(yaml_data.replace("/nodes", "/controller/config")
+                             .replace("nodes_page", "controller_config_page"))
+
+    elif req_num == "12":
+        yaml_to_write.append(yaml_data.replace("/nodes", "/key-value-store")
+                             .replace("nodes_page", "key_value_store_page"))
+
+    elif req_num == "13":
+        yaml_to_write.append(yaml_data.replace("/nodes", "/physical-storage")
+                             .replace("nodes_page", "physical_storage_page"))
 
     if req_num != "5" or req_num != "6" or req_num != "8":
         for i in range(len(data)):
@@ -97,6 +159,12 @@ def resource_names(data, req_num):
             elif req_num == "3":
                 nodes.append(data[i]['name'])
                 data_net_iface_res_def(data[i]['name'])
+                data_net_iface_res_def_volume_def(data[i]['name'])
+                data_net_iface_res_def_resources(data[i]['name'])
+                data_net_iface_res_def_resources_connection(data[i]['name'])
+            elif req_num == "2":
+                nodes.append(data[i]['storage_pool_name'])
+                data_net_iface_storage_pool_info(data[i]['storage_pool_name'])
             elif req_num == "4":
                 nodes.append(data[i]['name'])
                 data_net_iface_res_volume_groups(data[i]['name'])
@@ -217,7 +285,11 @@ if args.host:
                      "6": "http://"+host+"/v1/controller/version",
                      "7": "http://"+host+"/v1/error-reports",
                      "8": "http://"+host+"/v1/view/storage-pools",
-                     "9": "http://"+host+"/v1/view/resources"}
+                     "9": "http://"+host+"/v1/view/resources",
+                     "10": "http://"+host+"/v1/view/snapshots",
+                     "11": "http://"+host+"/v1/controller/config",
+                     "12": "http://"+host+"/v1/key-value-store",
+                     "13": "http://"+host+"/v1/physical-storage"}
         start_process()
         main()
 else:
