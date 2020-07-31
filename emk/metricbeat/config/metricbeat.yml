@@ -98,7 +98,7 @@ output.elasticsearch:
   # Optional protocol and basic auth credentials.
   #protocol: "https"
   username: "elastic"
-  password: "test@123"
+  password: "KIBANAPASS"
 
 #----------------------------- Logstash output --------------------------------
 #output.logstash:
