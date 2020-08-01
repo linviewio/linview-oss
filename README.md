@@ -1,6 +1,6 @@
 # LINVIEW OSS for LINSTOR (Beta)
 
-## Version: 0.7-beta (released 07/24/20)
+## Version: 0.8-beta (released 08/01/20)
 
 ## This project is being heavily developed and there may be breaking changes.
 
@@ -23,12 +23,12 @@ Elastic, Metricbeat and Kibana are often referred to as EMK, so when you see ref
 
 ## Requirements
 * Machine or VM with 4 CPU/ 8GB of RAM / 100GB Disk
-* Linux
+* Linux (Tested on Ubuntu and CentOS)
 * Docker CE Engine (https://docs.docker.com/engine/install/)
 * Docker Compose (https://docs.docker.com/compose/install/)
 * Target LINSTOR cluster*
 * OpenSSL
-* EPEL Repo (Centos Only)
+* EPEL Repo (CentOS Only)
 
 *If you need to configure a basic LINSTOR cluster on Ubuntu, you can follow instructions below:
 
@@ -46,9 +46,9 @@ We are actively developing installation scripts to streamline controller and sat
 5. Login to the interface at `https://KIBANAFQDNORIP` (the FQDN you provided) with username `elastic` and password that you provided during install.
 
 ## Updating and Import Dashboards
-1. In the `import` directory on the Docker host, copy `LINSTORHOST-linview-kibana.ndjson` file to your local machine.
-2. In Kibana, navigate to `management`, `Kibana`, `Saved Objects` and the choose `Import` and select the modified import file from step 1.
-3. Now you can navigate to LINVIEW saved objects in the interface.
+1. In the `/linview-oss/import` directory on the Docker host, copy `LINSTORHOST-linview-kibana.ndjson` file to your local machine. This file was automatically modified during install and should contain proper values based on the questions you answered during the install.
+2. In Kibana, navigate to `Management`, `Kibana`, `Saved Objects` and the choose `Import` and select the modified import file from step 1.
+3. Now you can navigate to [LINVIEW] saved objects in Kibana under "Dashboards".
 
 ## Roadmap
 * Interface "Quick Start Guide"
