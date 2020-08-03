@@ -100,7 +100,7 @@ echo -ne "${RED}"
                                  if [ "$hour" -eq "0" ] && [ "$min" -eq "0" ] && [ "$sec" -le "10" ]; then
                                          echo -ne "${GREEN}"
                                  fi
-                                 echo -ne "$(printf "%02d" $hour h):$(printf "%02d" $min m):$(printf "%02d" $sec s)\033[0K\r"
+                                 echo -ne "$(printf "%02d" $hour):$(printf "%02d" $min):$(printf "%02d" $sec)\033[0K\r"
                                  let "sec=sec-1"
                                  sleep 1
                          done
