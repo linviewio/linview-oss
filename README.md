@@ -24,13 +24,16 @@ Elastic, Metricbeat and Kibana are often referred to as EMK, so when you see ref
 ## Requirements
 * Machine or VM with 4 CPU/ 8GB of RAM / 100GB Disk
 * Linux (Tested on Ubuntu and CentOS)
-* Docker CE Engine (https://docs.docker.com/engine/install/)
-* Docker Compose (https://docs.docker.com/compose/install/)
-* Target LINSTOR cluster*
+* Docker CE Engine
+* Docker Compose
+* Target LINSTOR cluster
 * OpenSSL
 * EPEL Repo (CentOS Only)
 
-*If you need to configure a basic LINSTOR cluster on Ubuntu, you can follow instructions below:
+## LINSTOR Cluster Setup
+You will need an existing LINSTOR cluster to use this tool.
+
+If you need to configure a basic LINSTOR cluster on Ubuntu, you can follow instructions below:
 
 * *Official LINSTOR documentation:* https://www.linbit.com/drbd-user-guide/linstor-guide-1_0-en/#s-installation
 * *Basic 3 Node Setup Script for Ubuntu:* https://github.com/AlphaBravoCompany/linstor-ubuntu-demo 
@@ -38,12 +41,19 @@ Elastic, Metricbeat and Kibana are often referred to as EMK, so when you see ref
 
 We are actively developing installation scripts to streamline controller and satellite setup, storage pool creation and resource creation. We will update this README once this is complete.
 
+## Docker and Docker-Compose Install
+You will need Docker and Docker Compose installed on the host where LINVIEW OSS will be deployed. You can use one of the following links to guide you through the install.
+
+* Official Docker Install: https://docs.docker.com/engine/install/
+* Office Docker-Compose Install: https://docs.docker.com/compose/install/
+* Custom Docker and Docker-Compose Install Scripts: https://github.com/linviewio/docker-and-compose-install
+
 ## Setting up LINVIEW OSS
 1. On the machine where LINVIEW OSS will be hosted, clone this repo.
 2. Change int the LINSTOR OSS directory `cd linview-oss`
 3. Add execute to the setup script `chmod +x ./setup.sh`
 4. Run `./setup.sh` and enter the details for the Docker/Kibana host and the LINSTOR Controller host. The install automatically creates a local cert based on the information provided to configure HTTPS access to the system.
-5. Login to the interface at `https://KIBANAFQDNORIP` (the FQDN you provided) with username `elastic` and password that you provided during install.
+5. Login to the interface at `https://KIBANAFQDNorIP` (the FQDN you provided) with username `elastic` and password that you provided during install.
 
 ## Updating and Import Dashboards
 1. In the `/linview-oss/import` directory on the Docker host, copy `LINSTORHOST-linview-kibana.ndjson` file to your local machine. This file was automatically modified during install and should contain proper values based on the questions you answered during the install.

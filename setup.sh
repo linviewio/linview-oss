@@ -78,44 +78,48 @@ sed -i "s/\KIBANAPASS/$kibanapass/g" ./emk/metricbeat/config/metricbeat.yml
 cd ./emk
 docker-compose up -d
 
-echo
-echo -e ${GREEN}Please wait 5 minutes while Elastic and Kibana are configured.${NOCOLOR}
-echo
+# echo
+# echo -e ${GREEN}Please wait 5 minutes while Elastic and Kibana are configured.${NOCOLOR}
+# echo
 
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-YELLOW='\033[0;33m'
-RESET='\033[0m'
-hour=0
-min=5
-sec=0
-tput civis
-echo -ne "${RED}"
-        while [ $hour -ge 0 ]; do
-                 while [ $min -ge 0 ]; do
-                         while [ $sec -ge 0 ]; do
-                                 if [ "$hour" -eq "0" ] && [ "$min" -eq "0" ]; then
-                                         echo -ne "${YELLOW}"
-                                 fi
-                                 if [ "$hour" -eq "0" ] && [ "$min" -eq "0" ] && [ "$sec" -le "10" ]; then
-                                         echo -ne "${GREEN}"
-                                 fi
-                                 echo -ne "$(printf "%02d" $hour h):$(printf "%02d" $min m):$(printf "%02d" $sec s)\033[0K\r"
-                                 let "sec=sec-1"
-                                 sleep 1
-                         done
-                         sec=59
-                         let "min=min-1"
-                 done
-                 min=59
-                 let "hour=hour-1"
-         done
-echo -e "${RESET}"
-tput cnorm
+# GREEN='\033[0;32m'
+# RED='\033[0;31m'
+# YELLOW='\033[0;33m'
+# RESET='\033[0m'
+# hour=0
+# min=5
+# sec=0
+# tput civis
+# echo -ne "${RED}"
+#         while [ $hour -ge 0 ]; do
+#                  while [ $min -ge 0 ]; do
+#                          while [ $sec -ge 0 ]; do
+#                                  if [ "$hour" -eq "0" ] && [ "$min" -eq "0" ]; then
+#                                          echo -ne "${YELLOW}"
+#                                  fi
+#                                  if [ "$hour" -eq "0" ] && [ "$min" -eq "0" ] && [ "$sec" -le "10" ]; then
+#                                          echo -ne "${GREEN}"
+#                                  fi
+#                                  echo -ne "$(printf "%02d" $hour):$(printf "%02d" $min):$(printf "%02d" $sec)\033[0K\r"
+#                                  let "sec=sec-1"
+#                                  sleep 1
+#                          done
+#                          sec=59
+#                          let "min=min-1"
+#                  done
+#                  min=59
+#                  let "hour=hour-1"
+#          done
+# echo -e "${RESET}"
+# tput cnorm
 
 echo
 echo -e ${GREEN}Deployment is complete.
 echo -e Please visit: https://$kibanafqdn ${NOCOLOR}
 echo -e User: ${BLUE}elastic${NOCOLOR}
 echo -e Pass: ${BLUE}Password you provided for Kibana above${NOCOLOR}
+echo
+
+echo
+echo -e ${GREEN}Please wait 5 minutes while Elastic and Kibana are configured before logging in.${NOCOLOR}
 echo
