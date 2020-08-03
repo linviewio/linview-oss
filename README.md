@@ -24,19 +24,29 @@ Elastic, Metricbeat and Kibana are often referred to as EMK, so when you see ref
 ## Requirements
 * Machine or VM with 4 CPU/ 8GB of RAM / 100GB Disk
 * Linux (Tested on Ubuntu and CentOS)
-* Docker CE Engine (https://docs.docker.com/engine/install/)
-* Docker Compose (https://docs.docker.com/compose/install/)
-* Target LINSTOR cluster*
+* Docker CE Engine
+* Docker Compose
+* Target LINSTOR cluster
 * OpenSSL
 * EPEL Repo (CentOS Only)
 
-*If you need to configure a basic LINSTOR cluster on Ubuntu, you can follow instructions below:
+## LINSTOR Cluster Setup
+You will need an existing LINSTOR cluster to use this tool. 
+
+If you need to configure a basic LINSTOR cluster on Ubuntu, you can follow instructions below:
 
 * *Official LINSTOR documentation:* https://www.linbit.com/drbd-user-guide/linstor-guide-1_0-en/#s-installation
 * *Basic 3 Node Setup Script for Ubuntu:* https://github.com/AlphaBravoCompany/linstor-ubuntu-demo 
 * *Vito Botta blog:* https://vitobotta.com/2019/08/07/linstor-storage-with-kubernetes/
 
 We are actively developing installation scripts to streamline controller and satellite setup, storage pool creation and resource creation. We will update this README once this is complete.
+
+## Docker and Docker-Compose Install
+You will need Docker and Docker Compose installed on the host where LINVIEW OSS will be deployed. You can use one of the following links to guide you through the install.
+
+* Official Docker Install: https://docs.docker.com/engine/install/
+* Office Docker-Compose Install: https://docs.docker.com/compose/install/
+* Custom Docker and Docker-Compose Install Scripts: https://github.com/linviewio/docker-and-compose-install
 
 ## Setting up LINVIEW OSS
 1. On the machine where LINVIEW OSS will be hosted, clone this repo.
