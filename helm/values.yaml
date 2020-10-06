@@ -1,0 +1,68 @@
+# Linview OSS Helm Chart
+
+metricbeat:
+  extraVolumes:
+    - name: generate-py
+      configMap:
+        name: metricbeat-generation-configmap
+  extraInitContainers:
+    - name: "generate-metricbeat"
+      image: python:3.6-slim-stretch
+      env:
+       - name: HOST_IP
+         value: "<ENTER LINSTOR HOST IP HERE!>"
+       - name: HOST_PORT
+         value: "<ENTER LINSTOR HOST PORT HERE!>"
+      volumeMounts:
+      - name: generate-py
+        mountPath: /etc/generateMetricbeat.py
+      command:
+        - bash
+        - -c
+        - |
+           #!/bin/bash
+           python3 /etc/generateMetricbeat.py -host ${HOST_IP}:${HOST_PORT}
+  metricbeatConfig:
+    metricbeat.yml: |
+      metricbeat.config.modules:
+        path: ${path.config}/modules.d/*.yml
+        reload.enabled: false
+      setup.template.settings:
+        index.number_of_shards: 1
+        index.codec: best_compression
+      output.elasticsearch:
+        hosts: '${ELASTICSEARCH_HOSTS:elasticsearch-master:9200}'
+        username: "elastic"
+        password: "KIBANAPASS"
+      processors:
+        - add_host_metadata: ~
+        - add_cloud_metadata: ~
+
+kibana:
+  # Import dashboard from configmap 
+  envFrom: 
+  - configMapRef:
+      name: import-json-config-map
+  lifecycle:
+    postStart:
+      exec:
+        command:
+          - bash
+          - -c
+          - |
+            #!/bin/bash
+            KB_URL=http://localhost:5601
+            echo "$IMPORT_JSON" > import.json
+            while [[ "$(curl -s -o /dev/null -w '%{http_code}\n' -L $KB_URL)" != "200" ]]; do sleep 1; done
+            curl -XPOST "$KB_URL/api/kibana/dashboards/import" -H "Content-Type: application/json" -H 'kbn-xsrf: true' -d @./import.json
+
+elasticsearch:
+
+ingress:
+  enabled: false
+  annotations:
+    {}
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []

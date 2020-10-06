@@ -1,0 +1,16 @@
+apiVersion: v2
+name: linview-oss
+description: A Helm chart for Kubernetes
+type: application
+version: 0.1.0
+appVersion: 1.16.0
+dependencies:
+- name: metricbeat
+  version: "7.9.2"
+  repository: "https://helm.elastic.co"
+- name: kibana
+  version: "7.9.2"
+  repository: "https://helm.elastic.co"
+- name: elasticsearch
+  version: "7.9.2"
+  repository: "https://helm.elastic.co"
