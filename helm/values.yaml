@@ -57,6 +57,14 @@ kibana:
             curl -XPOST "$KB_URL/api/kibana/dashboards/import" -H "Content-Type: application/json" -H 'kbn-xsrf: true' -d @./import.json
 
 elasticsearch:
+  esConfig: 
+    elasticsearch.yml: |
+      cluster.name: "docker-cluster"
+      network.host: 0.0.0.0
+      discovery.type: single-node
+      xpack.license.self_generated.type: trial
+      xpack.security.enabled: true
+      xpack.monitoring.collection.enabled: true
 
 ingress:
   enabled: false
