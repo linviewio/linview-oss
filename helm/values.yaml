@@ -5,23 +5,23 @@ metricbeat:
     - name: generate-py
       configMap:
         name: metricbeat-generation-configmap
-  extraInitContainers:
+  extraInitContainers: |
     - name: "generate-metricbeat"
       image: python:3.6-slim-stretch
       env:
        - name: HOST_IP
-         value: "<ENTER LINSTOR HOST IP HERE!>"
+         value: "10.245.95.98"
        - name: HOST_PORT
-         value: "<ENTER LINSTOR HOST PORT HERE!>"
+         value: "3700"
       volumeMounts:
-      - name: generate-py
-        mountPath: /etc/generateMetricbeat.py
+        - name: generate-py
+          mountPath: /etc/generateMetricbeat.py
       command:
         - bash
         - -c
         - |
-           #!/bin/bash
-           python3 /etc/generateMetricbeat.py -host ${HOST_IP}:${HOST_PORT}
+          #!/bin/bash
+          python3 /etc/generateMetricbeat.py -host ${HOST_IP}:${HOST_PORT}
   metricbeatConfig:
     metricbeat.yml: |
       metricbeat.config.modules:
