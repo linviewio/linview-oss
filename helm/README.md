@@ -6,7 +6,7 @@ Helm is used to do the install, but there is a prerequisite creation of a Kubern
 
 ## Optional
 
-If you don't have an existing Linstor cluster, you can spin one up quickly on Kubernetes using Piraeus (https://github.com/piraeusdatastore/piraeus) or the Piraeus Operator.  Then, just use the piraeus controller service when using setup.sh and updating values.yaml.
+If you don't have an existing Linstor cluster, you can spin one up quickly on Kubernetes using Piraeus (https://github.com/piraeusdatastore/piraeus) or the Piraeus Operator.  Then, just use the piraeus controller service as HOST IP and HOST PORT when using setup.sh and updating values.yaml.
 
 ## Steps
 
