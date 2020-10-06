@@ -4,6 +4,10 @@ The Kubernetes Installation steps for Linview are a bit different than with dock
 
 Helm is used to do the install, but there is a prerequisite creation of a Kubernetes ConfigMap with your configuration created using the setup.sh file.  Also, you will need a supported Ingress Controller running on your cluster - see values.yaml for the ingress configuration for Kibana. You will have to customize the Helm chart if you want to run with Istio or a different mesh.
 
+## Optional
+
+If you don't have an existing Linstor cluster, you can spin one up quickly on Kubernetes using Piraeus (https://github.com/piraeusdatastore/piraeus) or the Piraeus Operator.  Then, just use the piraeus controller service when using setup.sh and updating values.yaml.
+
 ## Steps
 
 1. First, run the setup.sh file according to the normal installation instructions
