@@ -3,6 +3,16 @@
 metricbeat: {}
 kibana:
   # Import dashboard from configmap 
+  kibanaConfig:
+    kibana.yml: |
+      server.name: kibana
+      server.host: "0"
+      elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+      xpack.monitoring.ui.container.elasticsearch.enabled: true
+      elasticsearch.username: elastic
+      elasticsearch.password: test123
+      monitoring.enabled: false
+      kibana.defaultAppId: "dashboard/72c15740-f62f-11e9-a2ca-e9849bcad155"
   secretMounts:
   - name: import-json-secret
     secretName: import-json-secret
