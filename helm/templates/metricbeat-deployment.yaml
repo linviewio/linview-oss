@@ -15,6 +15,7 @@ spec:
       labels:
         app: metricbeat
     spec:
+      serviceAccountName: linview-oss-service-account
       imagePullSecrets:
       - name: registry-linview-private  #(if using enterprise Linview)
       volumes:
@@ -29,6 +30,7 @@ spec:
           name: config-metricbeat-configmap
       containers:
       - name: metricbeat
+        imagePullPolicy: Always
         image: registry.digitalocean.com/linview-private/linview-oss-metricbeat   
         volumeMounts:
         - name: generate-py
@@ -42,9 +44,17 @@ spec:
           subPath: metricbeat.yml
         env:
         - name: HOST_IP
-          value: "10.245.95.98"
+          value: "piraeus-controller"
         - name: HOST_PORT
           value: "3700"
+        - name: ELASTIC_IP
+          value: "elasticsearch-master"
+        - name: ELASTIC_PORT
+          value: "9200"
+        - name: KIBANA_IP
+          value: "{{ .Release.Name }}-kibana"
+        - name: KIBANA_PORT
+          value: "5601"
         command: 
          - bash
          - -c

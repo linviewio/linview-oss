@@ -26,20 +26,24 @@ kibana:
     secretName: import-json-secret
     path: /etc/import.json
     subPath: import.json 
-  lifecycle:
-    postStart:
-      exec:
-        command: ["bash", "-c", "sleep 120s; echo 'DOING'; curl -XPOST 'http://localhost:5601/api/kibana/dashboards/import' -H 'Content-Type: application/json' -H 'kbn-xsrf: true' -d @/etc/import.json"]
- # lifecycle:
- #   postStart:
- ##     exec:
-  #      command: 
-   #       - bash
-    #      - -c
-     #     - |
-      ###    KB_URL=http://localhost:5601
-         #   while [[ "$(curl -s -o /dev/null -w '%{http_code}\n' -L $KB_URL)" != "200" ]]; do sleep 1; done
-          #  curl -XPOST "$KB_URL/api/kibana/dashboards/import" -H "Content-Type: application/json" -H 'kbn-xsrf: true' -d @/etc/import.json
+  extraContainers:
+    - name: "create-dashboard"
+      volumeMounts:
+        - name: import-json-secret
+          mountPath: /etc/imports
+      image: yauritux/busybox-curl
+      command:
+        - "sh"
+        - "-c"
+        - |
+          echo "WOOHOO!"
+          ls imports
+          cp /etc/imports/IMPORT_JSON /etc/import.ndjson
+          echo "$(cat /etc/imports/IMPORT_JSON)"
+          sleep 120s
+          echo "READY!"
+          curl -XPOST "http://0.0.0.0:5601/api/saved_objects/_import" -H 'kbn-xsrf: true' --form file=@/etc/import.ndjson
+        
 
 elasticsearch:
   esJavaOpts: "-Xmx2g -Xms2g"
