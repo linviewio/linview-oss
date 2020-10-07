@@ -15,7 +15,7 @@ if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
 else
      echo "******************* Not first container startup **********************"
 fi
-python3 etc/metricbeat/python-scripts/generateMetricbeat.py -host ${HOST_IP}:${HOST_PORT}
+python3 /etc/metricbeat/python-scripts/generateMetricbeat.py -host ${HOST_IP}:${HOST_PORT}
 
 
 
