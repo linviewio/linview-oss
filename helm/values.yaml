@@ -1,42 +1,6 @@
 # Linview OSS Helm Chart
 
-metricbeat:
-  extraVolumes:
-    - name: generate-py
-      configMap:
-        name: metricbeat-generation-configmap
-    - name: py-reqs
-      configMap:
-        name: metricbeat-python-cm
-    - name: configdisk
-      emptyDir: {}
-  extraEnvs:
-    - name: HOST_IP
-      value: "10.245.95.98"
-    - name: HOST_PORT
-      value: "3700"
-  extraVolumeMounts:
-    - name: generate-py
-      mountPath: /etc/metricbeat/python-scripts/generateMetricbeat.py
-      subPath: generateMetricbeat.py
-    - name: generate-py
-      mountPath: /etc/metricbeat/python-scripts/requirements.txt
-      subPath: requirements.txt
-  metricbeatConfig:
-    metricbeat.yml: |
-      metricbeat.config.modules:
-        path: ${path.config}/modules.d/*.yml
-        reload.enabled: false
-      setup.template.settings:
-        index.number_of_shards: 1
-        index.codec: best_compression
-      output.elasticsearch:
-        hosts: '${ELASTICSEARCH_HOSTS:elasticsearch-master:9200}'
-        username: "elastic"
-        password: "test123"
-      processors:
-        - add_host_metadata: ~
-        - add_cloud_metadata: ~
+metricbeat: {}
 kibana:
   # Import dashboard from configmap 
   secretMounts:

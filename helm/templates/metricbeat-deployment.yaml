@@ -1,0 +1,49 @@
+# Eventually this may be one per pod?
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metricbeat-deployment
+  labels:
+    app: metricbeat
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: metricbeat
+  template:
+    metadata:
+      labels:
+        app: metricbeat
+    spec:
+      volumes:
+      - name: generate-py
+        configMap:
+          name: generate-metricbeat-configmap
+      - name: py-reqs
+        configMap:
+          name: requirements-metricbeat-configmap
+      - name: py-config
+        configMap:
+          name: config-metricbeat-configmap
+      containers:
+      - name: metricbeat
+        image: linview-oss/metricbeat:latest
+        bolumeMounts:
+        - name: generate-py
+          mountPath: /etc/metricbeat/python-scripts/generateMetricbeat.py
+          subPath: generateMetricbeat.py
+        - name: py-reqs
+          mountPath: /etc/metricbeat/python-scripts/requirements.txt
+          subPath: requirements.txt
+        - name: py-config
+          mountPath: /etc/metricbeat/config/metricbeat.yml
+          subPath: metricbeat.yml
+        env:
+        - name: HOST_IP
+          value: "10.245.95.98"
+        - name: HOST_PORT
+          value: "3700"
+        command: 
+         - bash
+         - -c
+         - "./etc/entrypoint.sh"
