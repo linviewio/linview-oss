@@ -7,9 +7,8 @@ if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
 #do
     #echo "==> Waiting for cluster yellow status" && sleep 1
 #done
-    cd /etc/metricbeat/ && chown root /etc/metricbeat/metricbeat.yml && metricbeat modules enable http && metricbeat modules disable system && pip3 install -r python-scripts/requirements.txt
+    cd /etc/metricbeat/ && cp ./other.yml /etc/metricbeat/metricbeat.yml && chown root /etc/metricbeat/metricbeat.yml && metricbeat modules enable http && metricbeat modules disable system && pip3 install -r python-scripts/requirements.txt
 	echo "********************-- Excecuting python script-***************************"
-
 	python3 python-scripts/generateMetricbeat.py -host ${HOST_IP}:${HOST_PORT}
     while true; do sleep 30; done;
 

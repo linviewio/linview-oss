@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: config-metricbeat-configmap
 data:
-  metricbeat.yml: |
+  other.yml: |
     metricbeat.config.modules:
       path: ${path.config}/modules.d/*.yml
       reload.enabled: false

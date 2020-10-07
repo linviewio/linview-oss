@@ -28,8 +28,8 @@ spec:
         image: registry.digitalocean.com/linview-private/linview-oss-metricbeat   
         volumeMounts:
         - name: py-config
-          mountPath: /etc/metricbeat/config/metricbeat.yml
-          subPath: metricbeat.yml
+          mountPath: /etc/metricbeat/other.yml
+          subPath: other.yml
         env:
         - name: HOST_IP
           value: "piraeus-controller.piraeus-system.svc.cluster.local"
