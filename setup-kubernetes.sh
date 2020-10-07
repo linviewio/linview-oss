@@ -40,79 +40,32 @@ read -p 'LINSTOR Port (Enter 3370 if you did not modify the default port): ' lin
 cp ./import/linview_kibana_example.ndjson ./import/$linstorhost-linview-kibana.ndjson
 
 # Replace variables in Kibana import file with proper provided values
-sed -i "s/\DOCKER_HOST_FQDN/$kibanafqdn/g" ./import/$linstorhost-linview-kibana.ndjson
+sed -i -e "s/\DOCKER_HOST_FQDN/$kibanafqdn/g" ./import/$linstorhost-linview-kibana.ndjson
 
 # Update the Kibana config with the user provided username and password
 cp ./emk/kibana/config/kibana.yml ./emk/kibana/config/kibana-$(date +"%Y%m%dT%H%M").yml.orig
-sed -i "s/\KIBANAPASS/$kibanapass/g" ./emk/kibana/config/kibana.yml
+sed -i -e "s/\KIBANAPASS/$kibanapass/g" ./emk/kibana/config/kibana.yml
 
-sed -i "s/\LINSTORPROTOCOL/$linstorprotocol/g" ./import/$linstorhost-linview-kibana.ndjson
-sed -i "s/\LINSTOR_CONTROLLER_FQDN/$linstorhost/g" ./import/$linstorhost-linview-kibana.ndjson
-sed -i "s/\LINSTORPORT/$linstorport/g" ./import/$linstorhost-linview-kibana.ndjson
+sed -i -e "s/\LINSTORPROTOCOL/$linstorprotocol/g" ./import/$linstorhost-linview-kibana.ndjson
+sed -i -e "s/\LINSTOR_CONTROLLER_FQDN/$linstorhost/g" ./import/$linstorhost-linview-kibana.ndjson
+sed -i -e "s/\LINSTORPORT/$linstorport/g" ./import/$linstorhost-linview-kibana.ndjson
 
 # Replace LINSTOR host in .env for Kibana setup
 cp ./emk/.env ./emk/.env--$(date +"%Y%m%dT%H%M").orig
-sed -i "s/\LINSTORHOST/$linstorhost/g" ./emk/.env
-sed -i "s/\LINSTORPORT/$linstorport/g" ./emk/.env
+sed -i -e "s/\LINSTORHOST/$linstorhost/g" ./emk/.env
+sed -i -e "s/\LINSTORPORT/$linstorport/g" ./emk/.env
 
 #Update Elastic/Kibana password for Elastic
-sed -i "s/\ELASTICPW/$kibanapass/g" ./emk/.env
+sed -i -e "s/\ELASTICPW/$kibanapass/g" ./emk/.env
 
 #Update Kibana FQDN for NGINX
-sed -i "s/\KIBANAFQDN/$kibanafqdn/g" ./emk/.env
+sed -i -e "s/\KIBANAFQDN/$kibanafqdn/g" ./emk/.env
 
 #Update Elastic/Kibana password for Metricbeat
-sed -i "s/\KIBANAPASS/$kibanapass/g" ./emk/metricbeat/config/metricbeat.yml
+sed -i -e "s/\KIBANAPASS/$kibanapass/g" ./emk/metricbeat/config/metricbeat.yml
 
 
 
 echo
 echo -e ${GREEN}Thanks! You can now create a ConfigMap from the Import JSON file as mentioned in the Helm Install README${NOCOLOR}
-echo
-
-
-# echo
-# echo -e ${GREEN}Please wait 5 minutes while Elastic and Kibana are configured.${NOCOLOR}
-# echo
-
-# GREEN='\033[0;32m'
-# RED='\033[0;31m'
-# YELLOW='\033[0;33m'
-# RESET='\033[0m'
-# hour=0
-# min=5
-# sec=0
-# tput civis
-# echo -ne "${RED}"
-#         while [ $hour -ge 0 ]; do
-#                  while [ $min -ge 0 ]; do
-#                          while [ $sec -ge 0 ]; do
-#                                  if [ "$hour" -eq "0" ] && [ "$min" -eq "0" ]; then
-#                                          echo -ne "${YELLOW}"
-#                                  fi
-#                                  if [ "$hour" -eq "0" ] && [ "$min" -eq "0" ] && [ "$sec" -le "10" ]; then
-#                                          echo -ne "${GREEN}"
-#                                  fi
-#                                  echo -ne "$(printf "%02d" $hour):$(printf "%02d" $min):$(printf "%02d" $sec)\033[0K\r"
-#                                  let "sec=sec-1"
-#                                  sleep 1
-#                          done
-#                          sec=59
-#                          let "min=min-1"
-#                  done
-#                  min=59
-#                  let "hour=hour-1"
-#          done
-# echo -e "${RESET}"
-# tput cnorm
-
-echo
-echo -e ${GREEN}Deployment is complete.
-echo -e Please visit: https://$kibanafqdn ${NOCOLOR}
-echo -e User: ${BLUE}elastic${NOCOLOR}
-echo -e Pass: ${BLUE}Password you provided for Kibana above${NOCOLOR}
-echo
-
-echo
-echo -e ${GREEN}Please wait 5 minutes while Elastic and Kibana are configured before logging in.${NOCOLOR}
 echo

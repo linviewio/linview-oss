@@ -9,7 +9,7 @@ setup.kibana:
 output.elasticsearch:
   hosts: ["172.16.1.2:9200"]
   username: "elastic"
-  password: "test123"
+  password: "KIBANAPASS"
 processors:
   - add_host_metadata: ~
   - add_cloud_metadata: ~
