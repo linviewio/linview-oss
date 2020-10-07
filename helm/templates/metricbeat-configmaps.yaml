@@ -6,7 +6,7 @@ data:
   requirements.txt: |
     requests
     apscheduler
-
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -29,7 +29,7 @@ data:
     - add_host_metadata: ~
     - add_cloud_metadata: ~
 
-
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:

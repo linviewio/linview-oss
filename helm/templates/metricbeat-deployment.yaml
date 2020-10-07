@@ -6,7 +6,7 @@ metadata:
   labels:
     app: metricbeat
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: metricbeat
@@ -15,6 +15,8 @@ spec:
       labels:
         app: metricbeat
     spec:
+      #imagePullSecrets:
+      #  - name: registry-linview-private (if using enterprise Linview)
       volumes:
       - name: generate-py
         configMap:
@@ -27,8 +29,8 @@ spec:
           name: config-metricbeat-configmap
       containers:
       - name: metricbeat
-        image: linview-oss/metricbeat:latest
-        bolumeMounts:
+        image: registry.digitalocean.com/linview-private/linview-oss-metricbeat   
+        volumeMounts:
         - name: generate-py
           mountPath: /etc/metricbeat/python-scripts/generateMetricbeat.py
           subPath: generateMetricbeat.py
