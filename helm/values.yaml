@@ -42,7 +42,7 @@ kibana:
   # Import dashboard from configmap 
   envFrom: 
   - configMapRef:
-      name: import-json-config-map
+      name: import-json-configmap
   files:
     kibana.yml: |
       elasticsearch.hosts: "https://elasticsearch-client:9200"
@@ -57,6 +57,7 @@ kibana:
           - -c
           - |
             #!/bin/bash
+            sleep 60000
             KB_URL=http://localhost:5601
             echo "$IMPORT_JSON" > import.json
             while [[ "$(curl -s -o /dev/null -w '%{http_code}\n' -L $KB_URL)" != "200" ]]; do sleep 1; done
