@@ -1,2 +1,2 @@
-helm/charts/*
+helm/charts/*.tgz
 import/IMPORT_JSON

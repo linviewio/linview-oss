@@ -5,6 +5,11 @@ metricbeat:
     - name: generate-py
       configMap:
         name: metricbeat-generation-configmap
+    - name: py-reqs
+      configMap:
+        name: metricbeat-python-cm
+    - name: configdisk
+      emptyDir: {}
   extraInitContainers: |
     - name: "generate-metricbeat"
       image: python:3.6-slim-stretch
@@ -16,12 +21,19 @@ metricbeat:
       volumeMounts:
         - name: generate-py
           mountPath: /etc/generateMetricbeat.py
+          subPath: generateMetricbeat.py
+        - name: generate-py
+          mountPath: /etc/requirements.txt
+          subPath: requirements.txt
+        - name: configdisk
+          mountPath: /etc/config
       command:
         - bash
         - -c
         - |
           #!/bin/bash
           python3 /etc/generateMetricbeat.py -host ${HOST_IP}:${HOST_PORT}
+          ls
   metricbeatConfig:
     metricbeat.yml: |
       metricbeat.config.modules:
