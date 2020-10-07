@@ -102,11 +102,14 @@ spec:
       - name: "metricbeat"
         image: "{{ .Values.image }}:{{ .Values.imageTag }}"
         imagePullPolicy: "{{ .Values.imagePullPolicy }}"
-        args:
-        - "-e"
-        - "-E"
-        - "http.enabled=true"
-        - "--system.hostfs=/hostfs"
+        command: 
+        - "/bin/sh"
+        - "-c"
+        - | 
+          #!/bin/bash
+          apt-get install python3 -y && apt-get install python3-pip -y
+          python3 /etc/metricbeat/python-scripts/generateMetricbeat.py -host ${HOST_IP}:${HOST_PORT} 
+          /usr/local/bin/docker-entrypoint -e -E http.enabled=true --system.hostfs=/hostfs
         livenessProbe:
 {{ toYaml .Values.livenessProbe | indent 10 }}
         readinessProbe:
