@@ -43,6 +43,12 @@ kibana:
   envFrom: 
   - configMapRef:
       name: import-json-config-map
+  files:
+    kibana.yml: |
+      elasticsearch.hosts: "https://elasticsearch-client:9200"
+      elasticsearch.username: svc_kibana
+      elasticsearch.password: test123
+      elasticsearch.ssl.verificationMode: "none"
   lifecycle:
     postStart:
       exec:

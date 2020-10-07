@@ -21,12 +21,6 @@ echo
 read -p 'Docker/Kibana Host IP or FQDN: ' dockerhostip
 
 echo
-echo -e ${GREEN}Please provide a wildcard domain name for internal cert generation.${NOCOLOR}
-echo
-
-read -p 'Wildcard domain for internal cert generation (eg. *.example.com): ' wildcarddomain
-
-echo
 echo -e ${GREEN}Please provide the Docker Host / Kibana Host FQDN that Kibana Will be accessed on.${NOCOLOR}
 echo
 
@@ -41,10 +35,6 @@ echo
 read -p 'LINSTOR Protocol (http or https): ' linstorprotocol
 read -p 'LINSTOR Controller IP or FQDN: ' linstorhost
 read -p 'LINSTOR Port (Enter 3370 if you did not modify the default port): ' linstorport
-
-# Generate internal x509 certificates
-mkdir ./emk/certs/
-openssl req -x509 -nodes -days 365 -subj "/C=US/ST=DC/O=LINVIEW, Inc./CN=$wildcarddomain" -addext "subjectAltName=IP:$dockerhostip,DNS:$kibanafqdn" -newkey rsa:2048 -keyout ./emk/certs/shared.key -out ./emk/certs/shared.crt;
 
 # Copy example Kibana import variables to new file with Linstor Controller name
 cp ./import/linview_kibana_example.ndjson ./import/$linstorhost-linview-kibana.ndjson
@@ -74,16 +64,12 @@ sed -i "s/\KIBANAFQDN/$kibanafqdn/g" ./emk/.env
 #Update Elastic/Kibana password for Metricbeat
 sed -i "s/\KIBANAPASS/$kibanapass/g" ./emk/metricbeat/config/metricbeat.yml
 
-# Run docker containers
+
 
 echo
-echo -e ${GREEN}Start with Docker Compose? (Exit out when installing on Kubernetes)${NOCOLOR}
+echo -e ${GREEN}Thanks! You can now create a ConfigMap from the Import JSON file as mentioned in the Helm Install README${NOCOLOR}
 echo
 
-read -p 'Docker/Kibana Host IP or FQDN: ' dockerhostip
-
-cd ./emk
-docker-compose up -d
 
 # echo
 # echo -e ${GREEN}Please wait 5 minutes while Elastic and Kibana are configured.${NOCOLOR}
