@@ -15,8 +15,8 @@ spec:
       labels:
         app: metricbeat
     spec:
-      #imagePullSecrets:
-      #- name: registry-linview-private  #(if using enterprise Linview)
+      imagePullSecrets:
+      - name: registry-linview-private  #(if using enterprise Linview)
       volumes:
       - name: generate-py
         configMap:
