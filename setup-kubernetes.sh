@@ -41,30 +41,9 @@ cp ./import/linview_kibana_example.ndjson ./import/$linstorhost-linview-kibana.n
 
 # Replace variables in Kibana import file with proper provided values
 sed -i -e "s/\DOCKER_HOST_FQDN/$kibanafqdn/g" ./import/$linstorhost-linview-kibana.ndjson
-
-# Update the Kibana config with the user provided username and password
-cp ./emk/kibana/config/kibana.yml ./emk/kibana/config/kibana-$(date +"%Y%m%dT%H%M").yml.orig
-sed -i -e "s/\KIBANAPASS/$kibanapass/g" ./emk/kibana/config/kibana.yml
-
 sed -i -e "s/\LINSTORPROTOCOL/$linstorprotocol/g" ./import/$linstorhost-linview-kibana.ndjson
 sed -i -e "s/\LINSTOR_CONTROLLER_FQDN/$linstorhost/g" ./import/$linstorhost-linview-kibana.ndjson
 sed -i -e "s/\LINSTORPORT/$linstorport/g" ./import/$linstorhost-linview-kibana.ndjson
-
-# Replace LINSTOR host in .env for Kibana setup
-cp ./emk/.env ./emk/.env--$(date +"%Y%m%dT%H%M").orig
-sed -i -e "s/\LINSTORHOST/$linstorhost/g" ./emk/.env
-sed -i -e "s/\LINSTORPORT/$linstorport/g" ./emk/.env
-
-#Update Elastic/Kibana password for Elastic
-sed -i -e "s/\ELASTICPW/$kibanapass/g" ./emk/.env
-
-#Update Kibana FQDN for NGINX
-sed -i -e "s/\KIBANAFQDN/$kibanafqdn/g" ./emk/.env
-
-#Update Elastic/Kibana password for Metricbeat
-sed -i -e "s/\KIBANAPASS/$kibanapass/g" ./emk/metricbeat/config/metricbeat.yml
-
-
 
 echo
 echo -e ${GREEN}Thanks! You can now create a ConfigMap from the Import JSON file as mentioned in the Helm Install README${NOCOLOR}
