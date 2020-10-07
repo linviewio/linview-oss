@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: metricbeat-deployment
+  name: {{ .Release.Name }}-metricbeat-deployment
   labels:
     app: metricbeat
 spec:
@@ -16,7 +16,7 @@ spec:
         app: metricbeat
     spec:
       #imagePullSecrets:
-      #  - name: registry-linview-private (if using enterprise Linview)
+      #- name: registry-linview-private  #(if using enterprise Linview)
       volumes:
       - name: generate-py
         configMap:

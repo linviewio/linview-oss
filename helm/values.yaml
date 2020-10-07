@@ -16,6 +16,7 @@ kibana:
           - -c
           - |
             #!/bin/bash
+            echo "DOING IT NOW"
             KB_URL=http://localhost:5601
             while [[ "$(curl -s -o /dev/null -w '%{http_code}\n' -L $KB_URL)" != "200" ]]; do sleep 1; done
             curl -XPOST "$KB_URL/api/kibana/dashboards/import" -H "Content-Type: application/json" -H 'kbn-xsrf: true' -d @/etc/import.json
@@ -23,9 +24,6 @@ kibana:
 elasticsearch:
   esConfig: 
     elasticsearch.yml: |
-      cluster.name: "docker-cluster"
-      network.host: 0.0.0.0
-      discovery.type: single-node
       xpack.license.self_generated.type: trial
       xpack.security.enabled: true
       xpack.monitoring.collection.enabled: true
