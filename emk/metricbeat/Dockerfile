@@ -21,4 +21,5 @@ USER root
 VOLUME ["/sys/fs/cgroup"]
 
 COPY entrypoint.sh /etc/
+COPY python-scripts /etc/metricbeat/python-scripts
 RUN chmod +x /etc/entrypoint.sh

@@ -7,10 +7,11 @@ if [ ! -e $CONTAINER_ALREADY_STARTED ]; then
 #do
     #echo "==> Waiting for cluster yellow status" && sleep 1
 #done
-    cd /etc/metricbeat/ && chown root /etc/metricbeat/metricbeat.yml && metricbeat modules enable http && metricbeat modules disable system && pip3 install -r python-scripts/requirements.txt && sleep 120 && metricbeat setup -e -E output.elasticsearch.hosts=['${ELASTIC_IP}:${ELASTIC_PORT}'] -E setup.kibana.host=${KIBANA_IP}:${KIBANA_PORT}
+    cd /etc/metricbeat/ && chown root /etc/metricbeat/metricbeat.yml && metricbeat modules enable http && metricbeat modules disable system && pip3 install -r python-scripts/requirements.txt
 	echo "********************-- Excecuting python script-***************************"
 
 	python3 python-scripts/generateMetricbeat.py -host ${HOST_IP}:${HOST_PORT}
+    while true; do sleep 30; done;
 
 else
      echo "******************* Not first container startup **********************"
