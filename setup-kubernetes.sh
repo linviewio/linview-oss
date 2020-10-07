@@ -40,10 +40,10 @@ read -p 'LINSTOR Port (Enter 3370 if you did not modify the default port): ' lin
 cp ./import/linview_kibana_example.ndjson ./import/$linstorhost-linview-kibana.ndjson
 
 # Replace variables in Kibana import file with proper provided values
-sed -i -e "s/\DOCKER_HOST_FQDN/$kibanafqdn/g" ./import/$linstorhost-linview-kibana.ndjson
-sed -i -e "s/\LINSTORPROTOCOL/$linstorprotocol/g" ./import/$linstorhost-linview-kibana.ndjson
-sed -i -e "s/\LINSTOR_CONTROLLER_FQDN/$linstorhost/g" ./import/$linstorhost-linview-kibana.ndjson
-sed -i -e "s/\LINSTORPORT/$linstorport/g" ./import/$linstorhost-linview-kibana.ndjson
+sed -i '' -e "s/\DOCKER_HOST_FQDN/$kibanafqdn/g" ./import/$linstorhost-linview-kibana.ndjson
+sed -i '' -e "s/\LINSTORPROTOCOL/$linstorprotocol/g" ./import/$linstorhost-linview-kibana.ndjson
+sed -i '' -e "s/\LINSTOR_CONTROLLER_FQDN/$linstorhost/g" ./import/$linstorhost-linview-kibana.ndjson
+sed -i '' -e "s/\LINSTORPORT/$linstorport/g" ./import/$linstorhost-linview-kibana.ndjson
 
 echo
 echo -e ${GREEN}Thanks! You can now create a ConfigMap from the Import JSON file as mentioned in the Helm Install README${NOCOLOR}
