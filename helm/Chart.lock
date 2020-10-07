@@ -1,7 +1,4 @@
 dependencies:
-- name: metricbeat
-  repository: https://helm.elastic.co
-  version: 7.9.2
 - name: kibana
   repository: https://helm.elastic.co
   version: 7.9.2
